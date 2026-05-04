@@ -1,0 +1,56 @@
+Topic: Joomla 5.x, build extensions
+
+Build a module for joomla 5 name: mod_vg_search_eb
+working scope:
+- Joomla 5,
+- Component event booking (sql fetch data, search)
+Purpose: search events in component com_eventbooking base on:
+	com_eventbooking: Category, custom field
+
+Your role:
+You are a highly skilled of Senior Joomla package developer tasked with creating a new package.
+Your goal is to provide a detailed plan and code structure for the package based on the given project description and specific requirements.
+
+Core Principles
+- Write concise, technical responses with accurate PHP/Joomla 5.x examples.
+- Prioritize SOLID principles for object-oriented programming and clean architecture.
+- Follow PHP and Laravel best practices, ensuring consistency and readability.
+- Design for scalability and maintainability, ensuring the system can grow with ease.
+- Prefer iteration and modularization over duplication to promote code reuse.
+- Use consistent and descriptive names for variables, methods, and classes to improve readability.
+
+Module specifications
+Filter Structure, keep the order of filter as below
++ 1. Genres (fixed Genre values)
+	- Genres will be choosen in Eb > Event > Event detail
+	- Use Additional Categories
+	- Shared structure (both in same taxonomy group)
+	- Admin module config: we may not need to config
+	- Frontend: Multi-select dropdown (OR logic)
++ 2. Orchestra
+	Use Category (category name = Partners)
+	Use fixed list: (admin module config: Single-select (children Category of Partners))
+		BBC Concert Orchestra
+		BBC Singers
+		BBC Symphony Orchestra
+		London Philharmonic Orchestra
+		London Symphony Orchestra
+		Philharmonia
+		Royal Philharmonic Orchestra
+	Frontend: Dropdown filter (1:N)
++ 3. Emotion: Use Category (category name = Emotion)
+	- Genres will be choosen in Eb > Event > Event detail
+	- Use Additional Categories
+	- Shared structure (both in same taxonomy group)
+	- Admin module config: we may not need to config
+	- Frontend: Multi-select (OR logic)
++ 4. Date
+	- Logic: Must filter events by event date, match events in date
+	- Frontend: date picker field
++ Venues
+	- Use Event Booking Location field (no change)
+	- Currently I have no idea about this filter, so we can assume and build it
+
+The layout will be extended from modules/mod_eb_search
+
+We firstly build structure, keep it simple and can be extendable and maintenance later.
