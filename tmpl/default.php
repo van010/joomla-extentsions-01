@@ -5,12 +5,13 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 ?>
-<form id="vg-search-eb-form"
-      action="<?php echo htmlspecialchars($action, ENT_COMPAT, 'UTF-8'); ?>"
-      method="get"
-      class="mod-vg-search-eb">
-    <input type="hidden" name="option" value="com_eventbooking">
-    <input type="hidden" name="view" value="search">
+
+<script type="text/javascript">
+	var vgSearchEbData = <?= json_encode($module); ?>;
+	var modVgSearchEbId = <?= json_decode($module->id); ?>;
+</script>
+
+<form class="vg-search-eb mod-vg-search-eb-<?= $module->id; ?>">
     <?php if (!empty($itemId)) : ?>
         <input type="hidden" name="Itemid" value="<?php echo (int) $itemId; ?>">
     <?php endif; ?>
@@ -81,12 +82,18 @@ use Joomla\CMS\Language\Text;
     </div>
 
     <div class="d-flex gap-2">
-        <button type="submit" class="btn btn-primary"><?php echo Text::_('MOD_VG_SEARCH_EB_SEARCH'); ?></button>
-        <button type="button" id="vg-search-eb-reset" class="btn btn-secondary"><?php echo Text::_('MOD_VG_SEARCH_EB_RESET'); ?></button>
+        <button type="button"
+                onclick="searchEvents()"
+                class="btn btn-primary"><?php echo Text::_('MOD_VG_SEARCH_EB_SEARCH'); ?></button>
+        <button type="button"
+                class="btn btn-secondary vg-search-eb-reset"
+                onclick="resetSearch()">
+            <?php echo Text::_('MOD_VG_SEARCH_EB_RESET'); ?>
+        </button>
     </div>
 </form>
 
-<div id="vg-search-eb-result">
+<div class="vg-search-eb-result-<?= $module->id; ?>">
 </div>
 
 <script>
