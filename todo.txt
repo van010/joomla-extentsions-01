@@ -1,0 +1,67 @@
+I.Module specifications
+Filter Structure, keep the order of filter as below
++ 1. Genres (fixed Genre values)
+	- Genres will be choosen in Eb > Event > Event detail
+	- Use Additional Categories
+	- Shared structure (both in same taxonomy group)
+	- Admin module config: we may not need to config
+	- Frontend: Multi-select dropdown (OR logic)
++ 2. Orchestra
+	Use Category (category name = Partners)
+	Use fixed list: (admin module config: Single-select (children Category of Partners))
+		BBC Concert Orchestra
+		BBC Singers
+		BBC Symphony Orchestra
+		London Philharmonic Orchestra
+		London Symphony Orchestra
+		Philharmonia
+		Royal Philharmonic Orchestra
+	Frontend: Dropdown filter (1:N)
++ 3. Emotion: Use Category (category name = Emotion)
+	- Genres will be choosen in Eb > Event > Event detail
+	- Use Additional Categories
+	- Shared structure (both in same taxonomy group)
+	- Admin module config: we may not need to config
+	- Frontend: Multi-select (OR logic)
++ 4. Date
+	- Logic: Must filter events by event date, match events in date
+	- Frontend: date picker field
++ 5. Venues
+	- Use Event Booking Location field (no change)
+	- Currently I have no idea about this filter, so we can assume and build it
+
+Filter Strategy:
+Category Filter (Single): Match events where the selected category is EITHER:
+The main_category_id in jos_eb_events, OR
+Any category in jos_eb_event_categories (main OR additional)
+Additional Categories (Multiple): Events MUST have ALL selected additional categories
+Location Filter: Match location_id
+Date Filter: Match event_date
+
+
+II. Features in build
+1. Todo
++ Add second layout
++ ✔Check eb installed or not
++ Improve main query filter:
+-- ✔Join with #__eb_locations
+-- ✔Get only events have end date >= current date
++ Add option override result in eb view=upcomingevents
+
+2. ship MVP
+Phase 1:
+1.1
++ ✔Base functions: filter by 4 attributes: 2, 3, 4, 5
++ ✔Select filters
++ ✔Search
++ ✔Reset
+1.2
++ Add layout: column, add backend selection config for result layout
++ Improve style for frontend filter
+
+Phase 2:
++ Add Custom field: 1. Genres for Event
++ Load Genres into Filter frontend
++ Make it functional
+
+-> User Test
