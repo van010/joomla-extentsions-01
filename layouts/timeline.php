@@ -1,21 +1,21 @@
 <?php
 
 /**
- * Layout timeline
- * Current code is sample events follow event booking style
+ * Layout timeline for search result
+ * @author vangogh
+ * @version 1.0.0
  */
 
-$layout = 'timeline';
 $events = $displayData;
 if (empty($events)) {
-    echo "Events not found";
+    echo '<p>Events not found</p>';
     return ;
 }
 
 ?>
 
-<div id="eb-upcoming-events-page-<?= $layout; ?>" class="eb-container">
-    <div id="eb-events" class="eb-events-<?= $layout; ?>">
+<div class="eb-container vg-search-result">
+    <div class="eb-events-timeline">
         <?php foreach ($events as $event):
             $parseEventDate = ModVgSearchEbHelper::splitDate($event->event_date);
             // $urlEventDetail = "/j5-studentpulse/index.php?option=com_eventbooking&amp;view=event&amp;id=".$event->id."&amp;catid=".$event->main_category_id."&amp;Itemid=103";
@@ -85,13 +85,9 @@ if (empty($events)) {
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

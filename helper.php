@@ -15,20 +15,26 @@ class ModVgSearchEbHelper
 
 	public static string $moduleName = 'mod_vg_search_eb';
 	public static string $comEbName = 'com_eventbooking';
+	public static array $allowedLayouts = ['timeline', 'column', 'columns'];
 
 	/**
-	 * Get layout from: modules/mod_vg_search_eb/layouts
-	 *  2 layouts: timeline, columns
+	 * Get result layout from module layouts folder.
 	 *
-	 * @param $events
+	 * @param   array   $events  The events list.
+	 * @param   string  $layout  The requested layout.
 	 *
 	 * @return string
 	 *
 	 * @since 1.0.0
 	 */
-	protected static function getLayout($events): string
+	protected static function getLayout(array $events, string $layout = 'timeline'): string
 	{
-		return LayoutHelper::render('timeline', $events, JPATH_ROOT . '/modules/'.self::$moduleName.'/layouts');
+		if (!in_array($layout, self::$allowedLayouts, true))
+		{
+			$layout = 'timeline';
+		}
+
+		return LayoutHelper::render($layout, $events, JPATH_ROOT . '/modules/' . self::$moduleName . '/layouts');
 	}
 
 	/**
@@ -41,6 +47,7 @@ class ModVgSearchEbHelper
 	{
 		$app = Factory::getApplication();
 		$input = $app->input;
+		$searchResultLayout = $input->getCmd('search_result_layout', 'timeline');
 		$data = [
 			'filterToDate' => $input->getString('filter_to_date'),
 			'filterFromDate' => $input->getString('filter_from_date'),
@@ -52,7 +59,7 @@ class ModVgSearchEbHelper
 		$events = VgSearchEbModel::getEvents($data);
 
 		Response::json([
-			'html' => self::getLayout($events),
+			'html' => self::getLayout($events, $searchResultLayout),
 			'message' => 'success'
 		]);
 	}
@@ -134,13 +141,8 @@ class ModVgSearchEbHelper
 		if (is_file($thumb)) {
 			return Uri::root() . str_replace(JPATH_SITE . DIRECTORY_SEPARATOR, '', $thumb);
 		}
-		// Get full image if thumb does not exist
-		$thumbPath = JPATH_ROOT . '/images/com_eventbooking';
-		if (is_file($thumbPath . "/{$imageName}")) {
-			return Uri::root() . str_replace(JPATH_SITE . DIRECTORY_SEPARATOR, '', $thumb);
-		}
-		
-		return null;
+
+		return Uri::root() . $imagePath;
 	}
 
 	/**

@@ -37,6 +37,8 @@ $orchestraParentId = (int) $params->get('orchestra_parent_id', 0);
 $orchestraNames    = (array) $params->get('orchestra_names', []);
 $showVenues        = (int) $params->get('show_venues', 1) === 1;
 $itemId            = (int) $params->get('item_id') ?: $currentMenuId ?: EventbookingHelper::getItemid();
+$moduleLayout      = $params->get('module_layout', 'vertical');
+$searchResultLayout = $params->get('search_result_layout', 'timeline');
 
 $filters = [
     'genres'    => VgSearchEbModel::getTaxonomyOptions('Genres'),

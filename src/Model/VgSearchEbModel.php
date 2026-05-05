@@ -305,6 +305,21 @@ class VgSearchEbModel
 
 		return $config;
 	}
+
+	public static function getSponsorByEventId(?int $eid): ?object
+	{
+		/** @var $db Joomla\Database\DatabaseDriver */
+		$db    = Factory::getContainer()->get('DatabaseDriver');
+		$query = $db->getQuery(true);
+		$query->select('DISTINCT s.*')
+			->from('#__eb_sponsors AS s')
+			->leftJoin('#__eb_event_sponsors AS es ON es.sponsor_id = s.id')
+			->where('es.`event_id` = :eid')
+			->bind(':eid', $eid);
+		$db->setQuery($query);
+
+		return $db->loadObject();
+	}
 }
 
 ?>
