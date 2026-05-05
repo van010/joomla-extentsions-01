@@ -10,6 +10,12 @@ use Joomla\CMS\Application\SiteApplication;
 require_once __DIR__ . '/src/Model/VgSearchEbModel.php';
 require_once __DIR__ . '/helper.php';
 
+if (!ModVgSearchEbHelper::isEbEnabled()) {
+	return ;
+}
+
+$module->Itemid = VgSearchEbModel::getEbUpComingEventsMenu();
+
 HTMLHelper::_('jquery.framework');
 
 /** @var SiteApplication $app */

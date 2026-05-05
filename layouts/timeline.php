@@ -18,7 +18,14 @@ if (empty($events)) {
     <div id="eb-events" class="eb-events-<?= $layout; ?>">
         <?php foreach ($events as $event):
             $parseEventDate = ModVgSearchEbHelper::splitDate($event->event_date);
-            $urlEventDetail = "/j5-studentpulse/index.php?option=com_eventbooking&amp;view=event&amp;id=".$event->id."&amp;catid=".$event->main_category_id."&amp;Itemid=103";
+            // $urlEventDetail = "/j5-studentpulse/index.php?option=com_eventbooking&amp;view=event&amp;id=".$event->id."&amp;catid=".$event->main_category_id."&amp;Itemid=103";
+            $urlEventDetail = ModVgSearchEbHelper::parseUrlEventDetail($event);
+            $urlLocation = ModVgSearchEbHelper::parseUrlLocation($event);
+            $eventDate = ModVgSearchEbHelper::parseDateTimeToArray($event->event_date);
+            $eventEndDate = ModVgSearchEbHelper::parseDateTimeToArray($event->event_end_date);
+            $price = VgSearchEbModel::getEbConfig('currency_symbol') . $event->individual_price;
+            $thumb = ModVgSearchEbHelper::getImageThumb($event->image);
+            $noImgClass = empty($thumb) ? 'no-img' : '';
             ?>
         <div class="eb-category-<?= $event->id; ?> eb-event-container">
             <div class="eb-event-date-container">
@@ -40,8 +47,8 @@ if (empty($events)) {
                         <div class="col-12 col-md-4 col-sm-6">
                             <div class="eb-description-details clearfix">
                                 <a href="<?= $urlEventDetail; ?>"><img
-                                            src="/j5-studentpulse/media/com_eventbooking/images/thumbs/gospel.jpg"
-                                            class="eb-thumb-left" alt="<?= $event->title; ?>"></a>
+                                            src="<?= $thumb; ?>"
+                                            class="eb-thumb-left <?= $noImgClass; ?>" alt="<?= $event->title; ?>"></a>
                             </div>
                         </div>
 
@@ -54,23 +61,27 @@ if (empty($events)) {
 
 
                                 <div class="event-intro">
-                                    <?= htmlspecialchars($event->short_description); ?></div>
+                                    <?= $event->short_description; ?></div>
 
                                 <div class="eb-event-information">
                                     <div class="event-details">
                                         <div class="eb-event-date-info clearfix">
                                             <i class="fa fa-calendar"></i>
-                                            Sun 30 Oct <span class="eb-time">7:00 pm</span>
-                                            - Mon 17 Aug <span class="eb-time">9:00 pm</span>
+                                            <?php if($eventDate['date']): ?>
+                                            <?= $eventDate['date']; ?> <span class="eb-time"><?= $eventDate['time']; ?></span>
+                                            <?php endif; ?>
+                                            <?php if ($eventEndDate['date']): ?>
+                                            - <?= $eventEndDate['date']; ?> <span class="eb-time"><?= $eventEndDate['time']; ?></span>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="clearfix">
                                             <span class="ic-img ic-pin2"></span>
-                                            <a href="/j5-studentpulse/index.php?option=com_eventbooking&amp;view=map&amp;location_id=2&amp;Itemid=183"><span>Barbican Hall</span></a>
+                                            <a href="<?= $urlLocation; ?>"><span><?= ucfirst($event->location_name); ?></span></a>
                                         </div>
                                     </div>
                                     <div class="event-price">
                                         <div class="eb-event-price-container btn-primary">
-                                            <span class="eb-individual-price">£9.00</span>
+                                            <span class="eb-individual-price"><?= $price; ?></span>
                                         </div>
                                     </div>
                                 </div>
