@@ -94,12 +94,12 @@ class VgSearchEbModel
 		if (!empty($data['filterFromDate']))
 		{
 			$query->where($db->quoteName('e.event_date') . ' >= :fromDate')
-				->bind(':fromDate', trim($data['filterFromDate']), ParameterType::STRING);
+				->bind(':fromDate', $data['filterFromDate'], ParameterType::STRING);
 		}
 		if (!empty($data['filterToDate']))
 		{
 			$query->where($db->quoteName('e.event_date') . ' <= :toDate')
-				->bind(':toDate', trim($data['filterToDate']), ParameterType::STRING);
+				->bind(':toDate', $data['filterToDate'], ParameterType::STRING);
 		}
 
 		// 2. Orchestra Category
@@ -114,7 +114,7 @@ class VgSearchEbModel
 		if (!empty($data['locationId']))
 		{
 			$query->where($db->quoteName('e.location_id') . ' = :locId')
-				->bind(':locId', (int) $data['locationId'], ParameterType::INTEGER);
+				->bind(':locId', $data['locationId'], ParameterType::INTEGER);
 		}
 
 		// 4. Emotion Categories (ALL must match)

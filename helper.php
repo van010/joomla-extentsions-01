@@ -49,8 +49,8 @@ class ModVgSearchEbHelper
 		$input = $app->input;
 		$searchResultLayout = $input->getCmd('search_result_layout', 'timeline');
 		$data = [
-			'filterToDate' => $input->getString('filter_to_date'),
-			'filterFromDate' => $input->getString('filter_from_date'),
+			'filterToDate' => trim($input->getString('filter_to_date')),
+			'filterFromDate' => trim($input->getString('filter_from_date')),
 			'orchestraCategoryId' => $input->getInt('orchestra_category_id', 0),
 			'emotionCategoryId' => $input->get('emotion_category_id', []),
 			'locationId' => $input->getInt('location_id', 0)
