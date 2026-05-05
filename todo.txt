@@ -41,13 +41,14 @@ Date Filter: Match event_date
 
 II. Features in build
 1. Todo
-+ Add second layout
++ ✔Add second layout
 + ✔Check eb installed or not
 + Improve main query filter:
 -- ✔Join with #__eb_locations
 -- ✔Get only events have end date >= current date
 + Add option override result in eb view=upcomingevents
-+ First load, show all available events
++ ✔First load, show all available events
++ ✔Use joomla session token when submit form
 
 2. ship MVP
 Phase 1:
@@ -60,10 +61,10 @@ Phase 1:
 + ✔Add search result layouts: column, columns,
 -- ✔add backend selection config for result layout
 + Style
--- Improve style for frontend filter
+-- ✔Improve style for frontend filter
 -- Responsive Mobile:
 	- ✔Search result
-	- Filter
+	- ✔Filter
 
 Phase 2:
 + Add Custom field: 1. Genres for Event
