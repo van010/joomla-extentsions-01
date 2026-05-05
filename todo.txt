@@ -47,6 +47,7 @@ II. Features in build
 -- ✔Join with #__eb_locations
 -- ✔Get only events have end date >= current date
 + Add option override result in eb view=upcomingevents
++ First load, show all available events
 
 2. ship MVP
 Phase 1:
@@ -56,8 +57,13 @@ Phase 1:
 + ✔Search
 + ✔Reset
 1.2
-+ Add layout: column, add backend selection config for result layout
-+ Improve style for frontend filter
++ ✔Add search result layouts: column, columns,
+-- ✔add backend selection config for result layout
++ Style
+-- Improve style for frontend filter
+-- Responsive Mobile:
+	- ✔Search result
+	- Filter
 
 Phase 2:
 + Add Custom field: 1. Genres for Event
