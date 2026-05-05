@@ -22,6 +22,7 @@ $layoutClass = !empty($moduleLayout) ? 'vg-search-eb-' . htmlspecialchars($modul
         <input type="hidden" name="search_result_layout" value="<?php echo htmlspecialchars($searchResultLayout, ENT_COMPAT, 'UTF-8'); ?>">
         <input type="hidden" name="category_id" id="vg_filter_category_id" value="<?php echo (int) $resolvedCategoryId; ?>">
         <input type="hidden" name="filter_to_date" id="vg_filter_to_date" value="<?php echo htmlspecialchars($selectedDate, ENT_COMPAT, 'UTF-8'); ?>">
+        <?php echo HTMLHelper::_('form.token'); ?>
 
         <div class="eb-filter-container">
             <?php if (!empty($filters['orchestra'])) : ?>
@@ -104,10 +105,11 @@ $layoutClass = !empty($moduleLayout) ? 'vg-search-eb-' . htmlspecialchars($modul
         </div>
 
         <div class="vg-filter-actions">
-            <button type="button" onclick="searchEvents()" class="btn btn-primary">
+            <button type="button" data-action="search" class="btn btn-primary">
                 <?php echo Text::_('MOD_VG_SEARCH_EB_SEARCH'); ?>
             </button>
-            <button type="button" class="btn btn-secondary vg-search-eb-reset" onclick="resetSearch()">
+
+            <button type="button" data-action="reset" class="btn btn-secondary">
                 <?php echo Text::_('MOD_VG_SEARCH_EB_RESET'); ?>
             </button>
         </div>

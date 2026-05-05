@@ -2,6 +2,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Session\Session;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Layout\LayoutHelper;
@@ -48,6 +49,9 @@ class ModVgSearchEbHelper
 		$app = Factory::getApplication();
 		$input = $app->input;
 		$searchResultLayout = $input->getCmd('search_result_layout', 'timeline');
+		if (!Session::checkToken()) {
+			Response::error('Bad request');
+		}
 		$data = [
 			'filterToDate' => trim($input->getString('filter_to_date')),
 			'filterFromDate' => trim($input->getString('filter_from_date')),

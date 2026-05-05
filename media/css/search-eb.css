@@ -190,3 +190,8 @@
 .vg-search-eb input[type="text"].form-control {
     cursor: pointer;
 }
+
+.vg-search-result img.eb-thumb-left {
+    height: 100%;
+    width: 100%;
+}
