@@ -60,6 +60,29 @@
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
+                <field
+                    name="module_layout"
+                    type="list"
+                    label="MOD_VG_SEARCH_EB_MODULE_LAYOUT"
+                    description="MOD_VG_SEARCH_EB_MODULE_LAYOUT_DESC"
+                    default="vertical"
+                    class="form-select"
+                >
+                    <option value="vertical">MOD_VG_SEARCH_EB_LAYOUT_VERTICAL</option>
+                    <option value="horizontal">MOD_VG_SEARCH_EB_LAYOUT_HORIZONTAL</option>
+                </field>
+                <field
+                    name="search_result_layout"
+                    type="list"
+                    label="MOD_VG_SEARCH_EB_SEARCH_RESULT_LAYOUT"
+                    description="MOD_VG_SEARCH_EB_SEARCH_RESULT_LAYOUT_DESC"
+                    default="timeline"
+                    class="form-select"
+                >
+                    <option value="timeline">MOD_VG_SEARCH_EB_LAYOUT_TIMELINE</option>
+                    <option value="column">MOD_VG_SEARCH_EB_LAYOUT_COLUMN</option>
+                    <option value="columns">MOD_VG_SEARCH_EB_LAYOUT_COLUMNS</option>
+                </field>
             </fieldset>
             <fieldset name="advanced">
                 <field
