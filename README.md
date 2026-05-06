@@ -6,7 +6,7 @@
 - **mod_vg_search_eb** (v1.0.1) - Enhanced search module
 
 ### Plugins
-- (Coming soon)
+- **plugin genres** (v1.0.0) - Add custom Genres field for events
 
 ### Components
 - (Coming soon)
