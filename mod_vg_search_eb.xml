@@ -7,7 +7,7 @@
     <authorUrl>https://www.linkedin.com/in/van-hs-0a00511b2</authorUrl>
     <copyright>Copyright 2010 - 2026 Thepixel Team</copyright>
     <license>https://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <description>MOD_VG_SEARCH_EB_XML_DESCRIPTION</description>
     <files>
         <filename module="mod_vg_search_eb">mod_vg_search_eb.php</filename>

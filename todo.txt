@@ -65,10 +65,13 @@ Phase 1:
 -- Responsive Mobile:
 	- ✔Search result
 	- ✔Filter
+Ship MVP 05/05/26
 
 Phase 2:
 + Add Custom field: 1. Genres for Event
-+ Load Genres into Filter frontend
-+ Make it functional
+-- ✔Build evenbooking plugin: plugins/eventbooking/genres/
++ ✔Load Genres into Filter frontend
++ ✔Make it functional
+Ship MVP 06/05/26
 
 -> User Test
