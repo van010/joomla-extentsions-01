@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="4.2.0" type="plugin" group="eventbooking" method="upgrade">
+    <name>PLG_EVENTBOOKING_GENRES_XML_NAME</name>
+    <author>vangogh</author>
+    <creationDate>May 6th, 2026</creationDate>
+    <copyright>Copyright 2026</copyright>
+    <license>https://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authorEmail>van.vanbac010@gmail.com</authorEmail>
+    <authorUrl>https://www.linkedin.com/in/van-hs-0a00511b2</authorUrl>
+    <version>1.0.0</version>
+    <description>PLG_EVENTBOOKING_GENRES_XML_DESCRIPTION</description>
+    <files>
+        <filename plugin="genres">genres.php</filename>
+        <folder>tmpl</folder>
+    </files>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/plg_eventbooking_genres.ini</language>
+        <language tag="en-GB">en-GB/plg_eventbooking_genres.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="show_on_frontend"
+                    type="radio"
+                    label="PLG_EVENTBOOKING_GENRES_SHOW_ON_FRONTEND"
+                    description="PLG_EVENTBOOKING_GENRES_SHOW_ON_FRONTEND_DESC"
+                    layout="joomla.form.field.radio.switcher"
+                    default="0"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>
