@@ -30,7 +30,7 @@ $selectedVenue       = $input->getInt('location_id', 0);
 $selectedCategoryId  = $input->getInt('category_id', 0);
 $currentMenuId       = $input->getInt('Itemid', (int) ($app->getMenu()->getActive()->id ?? 0));
 
-$selectedGenres  = array_map('intval', $selectedGenres);
+$selectedGenres  = array_values(array_filter(array_map('trim', array_map('strval', $selectedGenres))));
 $selectedEmotion = array_map('intval', $selectedEmotion);
 
 $orchestraParentId = (int) $params->get('orchestra_parent_id', 0);

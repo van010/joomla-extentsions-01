@@ -6,12 +6,13 @@
  * @version 1.0.0
  */
 
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
 $events = $displayData;
 
 if (empty($events)) {
-    echo '<p>Events not found</p>';
+    echo Text::_('MOD_VG_SEARCH_EB_EVENT_NOT_FOUND');
     return;
 }
 ?>

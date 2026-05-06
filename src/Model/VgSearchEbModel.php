@@ -110,6 +110,25 @@ class VgSearchEbModel
 				->bind(':catId', $catId, ParameterType::INTEGER);
 		}
 
+		// 2.5 Genres from event params key eb_genres (OR logic)
+		$genreValues = array_values(array_filter(array_map('trim', array_map('strval', (array) ($data['genreValues'] ?? [])))));
+
+		if (!empty($genreValues))
+		{
+			$genreConditions = [];
+
+			foreach ($genreValues as $genreValue)
+			{
+				$quotedGenre       = $db->quote('%' . $db->escape($genreValue, true) . '%', false);
+				$genreConditions[] = $db->quoteName('e.params') . ' LIKE ' . $quotedGenre;
+			}
+
+			if (!empty($genreConditions))
+			{
+				$query->where('(' . implode(' OR ', $genreConditions) . ')');
+			}
+		}
+
 		// 3. Location
 		if (!empty($data['locationId']))
 		{
@@ -143,10 +162,39 @@ class VgSearchEbModel
 		;
 
 		$query->order($db->quoteName('e.event_date') . ' ASC');
+		// dd((string) $query);
 
 		$db->setQuery($query);
 
 		return $db->loadObjectList();
+	}
+
+	/**
+	 * Resolve category IDs to Event Booking category names.
+	 *
+	 * @param   array<int, int>  $categoryIds
+	 *
+	 * @return array<int, string>
+	 */
+	private static function getCategoryTitlesByIds(array $categoryIds): array
+	{
+		$categoryIds = array_values(array_unique(array_filter(array_map('intval', $categoryIds))));
+
+		if (empty($categoryIds))
+		{
+			return [];
+		}
+
+		/** @var \Joomla\Database\DatabaseDriver $db */
+		$db    = Factory::getContainer()->get('DatabaseDriver');
+		$query = $db->getQuery(true)
+			->select($db->quoteName('c.name'))
+			->from($db->quoteName('#__eb_categories', 'c'))
+			->whereIn($db->quoteName('c.id'), $categoryIds, ParameterType::INTEGER);
+
+		$db->setQuery($query);
+
+		return array_values(array_filter(array_map('strval', $db->loadColumn() ?: [])));
 	}
 
 	/**
@@ -184,9 +232,7 @@ class VgSearchEbModel
             $parentId = VgSearchEbModel::getCategoryIdByTitle('Partners');
         }
 
-        if ($parentId <= 0) {
-            return [];
-        }
+        if ($parentId <= 0) return [];
 
         $db    = Factory::getContainer()->get('DatabaseDriver');
         $query = $db->getQuery(true)
@@ -220,6 +266,11 @@ class VgSearchEbModel
 	 */
 	public static function getTaxonomyOptions(string $groupName): array
 	{
+		if ($groupName === 'Genres')
+		{
+			return self::getConfiguredGenreOptions();
+		}
+
 		$parentId = VgSearchEbModel::getCategoryIdByTitle($groupName);
 
         if ($parentId <= 0) {
@@ -238,6 +289,57 @@ class VgSearchEbModel
         $query->bind(':parentId', $parentId, ParameterType::INTEGER);
 
         return $db->setQuery($query)->loadObjectList() ?: [];
+	}
+
+	/**
+	 * Genres options from plugin eventbooking/genres config.
+	 *
+	 * @return array<int, object{id:string,title:string}>
+	 */
+	private static function getConfiguredGenreOptions(): array
+	{
+		$defaultGenres = [
+			'Pop', 'Rock', 'Hip-Hop', 'Electronic (EDM)', 'Country', 'Jazz', 'Blues',
+			'R&B', 'Reggae', 'Classical', 'Techno', 'Death Metal', 'Trap',
+		];
+
+		$db    = Factory::getContainer()->get('DatabaseDriver');
+		$query = $db->getQuery(true)
+			->select($db->quoteName('params'))
+			->from($db->quoteName('#__extensions'))
+			->where($db->quoteName('type') . ' = ' . $db->quote('plugin'))
+			->where($db->quoteName('folder') . ' = ' . $db->quote('eventbooking'))
+			->where($db->quoteName('element') . ' = ' . $db->quote('genres'))
+			->where($db->quoteName('enabled') . ' = 1');
+
+		$db->setQuery($query);
+		$paramsJson = (string) $db->loadResult();
+
+		$genres = $defaultGenres;
+
+		if ($paramsJson !== '')
+		{
+			$params = json_decode($paramsJson, true);
+
+			if (is_array($params) && !empty($params['genre_values']))
+			{
+				$parsed = preg_split('/\s*,\s*/', (string) $params['genre_values'], -1, PREG_SPLIT_NO_EMPTY);
+
+				if (is_array($parsed) && !empty($parsed))
+				{
+					$genres = array_values(array_unique(array_map('trim', array_map('strval', $parsed))));
+				}
+			}
+		}
+
+		$options = [];
+
+		foreach ($genres as $genre)
+		{
+			$options[] = (object) ['id' => $genre, 'title' => $genre];
+		}
+
+		return $options;
 	}
 
 	/**
@@ -308,7 +410,7 @@ class VgSearchEbModel
 
 	public static function getSponsorByEventId(?int $eid): ?object
 	{
-		/** @var $db Joomla\Database\DatabaseDriver */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db    = Factory::getContainer()->get('DatabaseDriver');
 		$query = $db->getQuery(true);
 		$query->select('DISTINCT s.*')

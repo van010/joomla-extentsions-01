@@ -225,21 +225,33 @@
     padding: 0 10px;
     position: relative;
     font-weight: bold;
-  }
-  
-  .choices__button_joomla:before {
+}
+
+.choices__button_joomla:before {
     text-align: center;
     text-indent: 0;
     content: "×";
     display: block;
     position: absolute;
     inset: 0;
-  }
-  
-  .choices__button_joomla:hover, .choices__button_joomla:focus {
+}
+
+.choices__button_joomla:hover, .choices__button_joomla:focus {
     opacity: 1;
-  }
-  
-  .choices__button_joomla:focus {
+}
+
+.choices__button_joomla:focus {
     outline: none;
-  }
+}
+
+.eb-filter-container .icon-calendar {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url("../images/icons/CalendarBlank.png") center center / contain no-repeat;
+    vertical-align: middle;
+}
+
+.eb-filter-container .icon-calendar::before {
+    content: "";
+}

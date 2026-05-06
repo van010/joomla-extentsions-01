@@ -56,6 +56,7 @@ class ModVgSearchEbHelper
 		$data = [
 			'filterToDate' => trim($input->getString('filter_to_date')),
 			'filterFromDate' => trim($input->getString('filter_from_date')),
+			'genreValues' => $input->get('genres', [], 'array'),
 			'orchestraCategoryId' => $input->getInt('orchestra_category_id', 0),
 			'emotionCategoryId' => $input->get('emotion_category_id', []),
 			'locationId' => $input->getInt('location_id', 0)
@@ -244,7 +245,7 @@ class ModVgSearchEbHelper
 
 		foreach ($items as $item)
 		{
-			$options[] = HTMLHelper::_('select.option', (string) (int) $item->id, $item->title);
+			$options[] = HTMLHelper::_('select.option', (string) $item->id, $item->title);
 		}
 
 		return LayoutHelper::render(
@@ -272,7 +273,7 @@ class ModVgSearchEbHelper
 				'size'           => '',
 				'spellcheck'     => false,
 				'validate'       => '',
-				'value'          => array_values(array_map('intval', $selectedIds)),
+				'value'          => array_values(array_map('strval', $selectedIds)),
 				'options'        => $options,
 				'dataAttribute'  => '',
 				'dataAttributes' => [],
