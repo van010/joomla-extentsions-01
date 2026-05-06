@@ -31,6 +31,16 @@
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
+                <field
+                        name="genre_values"
+                        type="textarea"
+                        label="PLG_EVENTBOOKING_GENRES_VALUES_LABEL"
+                        description="PLG_EVENTBOOKING_GENRES_VALUES_DESC"
+                        rows="5"
+                        cols="60"
+                        filter="raw"
+                        default="Pop, Rock, Hip-Hop, Electronic (EDM), Country, Jazz, Blues, R&amp;B, Reggae, Classical, Techno, Death Metal, Trap"
+                />
             </fieldset>
         </fields>
     </config>

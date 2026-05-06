@@ -102,7 +102,8 @@ class plgEventbookingGenres extends CMSPlugin implements SubscriberInterface
 		}
 
 		$posted    = array_map('strval', $posted);
-		$sanitized = array_values(array_intersect(self::ALLOWED_GENRES, $posted));
+		$allowed   = $this->getAllowedGenresFromConfig();
+		$sanitized = array_values(array_intersect($allowed, $posted));
 
 		$params = new Registry($row->params);
 		$params->set(self::PARAM_KEY, json_encode($sanitized, JSON_UNESCAPED_UNICODE));
@@ -125,11 +126,12 @@ class plgEventbookingGenres extends CMSPlugin implements SubscriberInterface
 
 			if (is_array($decoded))
 			{
-				$selectedGenres = array_values(array_intersect(self::ALLOWED_GENRES, $decoded));
+				$allowedList    = $this->getAllowedGenresFromConfig();
+				$selectedGenres = array_values(array_intersect($allowedList, $decoded));
 			}
 		}
 
-		$allowedGenres = self::ALLOWED_GENRES;
+		$allowedGenres = $this->getAllowedGenresFromConfig();
 
 		require PluginHelper::getLayoutPath($this->_type, $this->_name, 'form');
 	}
@@ -142,5 +144,70 @@ class plgEventbookingGenres extends CMSPlugin implements SubscriberInterface
 		}
 
 		return true;
+	}
+
+	/**
+	 * Allowed genre labels from this plugin params.
+	 *
+	 * Admin can extend with comma-separated values via plugin param `genre_values`.
+	 * Falls back to ALLOWED_GENRES when empty.
+	 *
+	 * @return array<int, string>
+	 */
+	private function getAllowedGenresFromConfig(): array
+	{
+		static $cached = null;
+
+		if ($cached !== null)
+		{
+			return $cached;
+		}
+
+		$raw = (string) $this->params->get('genre_values', '');
+
+		if ($raw === '')
+		{
+			$cached = self::ALLOWED_GENRES;
+
+			return $cached;
+		}
+
+		$parts = $this->splitGenreValuesList($raw);
+
+		$seen   = [];
+		$merged = [];
+
+		foreach ($parts as $genre)
+		{
+			if ($genre === '')
+			{
+				continue;
+			}
+
+			if (!isset($seen[$genre]))
+			{
+				$seen[$genre] = true;
+				$merged[]     = $genre;
+			}
+		}
+
+		$cached = $merged !== [] ? $merged : self::ALLOWED_GENRES;
+
+		return $cached;
+	}
+
+	/**
+	 * @return array<int, string>
+	 */
+	private function splitGenreValuesList(string $raw): array
+	{
+		$parts = preg_split('/\s*,\s*/', $raw, -1, PREG_SPLIT_NO_EMPTY);
+
+		if ($parts === false)
+		{
+			return [];
+		}
+
+		return array_map('trim', $parts);
 	}
 }

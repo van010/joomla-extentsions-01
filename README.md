@@ -1,16 +1,9 @@
-# Joomla Extensions Collection
-
 ## Extensions
-
-### Modules
-- **mod_vg_search_eb** (v1.0.1) - Enhanced search module
-
 ### Plugins
-- (Coming soon)
+Add custom field genres for com-eventbooking
 
-### Components
-- (Coming soon)
-
-## Development
-
-Each extension has its own folder and can be built independently.
+### Installation
+Enable it
+1. Install/discover the plugin under Extensions → Manage → Discover (or install the folder),  
+2. Then enable “Events Booking - Genres”.  
+3. After that, open Administrator → Events Booking → Events → [event] and you should see a Genres tab with the fancy multi-select.
