@@ -65,7 +65,7 @@
                     type="list"
                     label="MOD_VG_SEARCH_EB_MODULE_LAYOUT"
                     description="MOD_VG_SEARCH_EB_MODULE_LAYOUT_DESC"
-                    default="vertical"
+                    default="horizontal"
                     class="form-select"
                 >
                     <option value="vertical">MOD_VG_SEARCH_EB_LAYOUT_VERTICAL</option>
