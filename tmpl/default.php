@@ -47,15 +47,13 @@ $layoutClass = !empty($moduleLayout) ? 'vg-search-eb-' . htmlspecialchars($modul
                     <label for="vg_filter_genres" class="form-label">
                         <?php echo Text::_('MOD_VG_SEARCH_EB_GENRES'); ?>
                     </label>
-                    <select name="genres[]" id="vg_filter_genres" class="form-select" multiple size="4">
-                        <?php foreach ($filters['genres'] as $item) : ?>
-                            <option value="<?php echo (int) $item->id; ?>"
-                                <?php echo in_array((int) $item->id, $selectedGenres, true) ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($item->title, ENT_COMPAT, 'UTF-8'); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple</small>
+                    <?php echo ModVgSearchEbHelper::fancySelectMultiple(
+                        $filters['genres'],
+                        'genres[]',
+                        'vg_filter_genres',
+                        $selectedGenres,
+                        Text::_('MOD_VG_TYPE_OR_SELECT_GENRES')
+                    ); ?>
                 </div>
             <?php endif; ?>
 
@@ -64,15 +62,13 @@ $layoutClass = !empty($moduleLayout) ? 'vg-search-eb-' . htmlspecialchars($modul
                     <label for="vg_filter_emotion" class="form-label">
                         <?php echo Text::_('MOD_VG_SEARCH_EB_EMOTION'); ?>
                     </label>
-                    <select name="emotion_category_id[]" id="vg_filter_emotion" class="form-select" multiple size="4">
-                        <?php foreach ($filters['emotion'] as $item) : ?>
-                            <option value="<?php echo (int) $item->id; ?>"
-                                <?php echo in_array((int) $item->id, $selectedEmotion, true) ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($item->title, ENT_COMPAT, 'UTF-8'); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple</small>
+                    <?php echo ModVgSearchEbHelper::fancySelectMultiple(
+                        $filters['emotion'],
+                        'emotion_category_id[]',
+                        'vg_filter_emotion',
+                        $selectedEmotion,
+                        Text::_('MOD_VG_TYPE_OR_SELECT_EMOTIONS')
+                    ); ?>
                 </div>
             <?php endif; ?>
 

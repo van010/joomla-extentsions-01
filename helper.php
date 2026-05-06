@@ -2,6 +2,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -235,5 +236,47 @@ class ModVgSearchEbHelper
 	public static function getCurrentDate(): string
 	{
 		return date("Y-m-d H:i:s");
+	}
+
+	public static function fancySelectMultiple(array $items, string $name, string $id, array $selectedIds, string $hint): string
+	{
+		$options = [];
+
+		foreach ($items as $item)
+		{
+			$options[] = HTMLHelper::_('select.option', (string) (int) $item->id, $item->title);
+		}
+
+		return LayoutHelper::render(
+			'joomla.form.field.list-fancy-select',
+			[
+				'autocomplete'   => '',
+				'autofocus'      => false,
+				'class'          => 'form-select',
+				'description'    => '',
+				'disabled'       => false,
+				'group'          => '',
+				'hidden'         => false,
+				'hint'           => $hint,
+				'id'             => $id,
+				'label'          => '',
+				'labelclass'     => '',
+				'multiple'       => true,
+				'name'           => $name,
+				'onchange'       => '',
+				'onclick'        => '',
+				'pattern'        => '',
+				'readonly'       => false,
+				'repeat'         => false,
+				'required'       => false,
+				'size'           => '',
+				'spellcheck'     => false,
+				'validate'       => '',
+				'value'          => array_values(array_map('intval', $selectedIds)),
+				'options'        => $options,
+				'dataAttribute'  => '',
+				'dataAttributes' => [],
+			]
+		);
 	}
 }

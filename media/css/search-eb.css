@@ -181,9 +181,27 @@
     }
 }
 
-/* Multi-select improvements */
-.vg-search-eb select[multiple] {
-    min-height: 100px;
+/* Fancy multi-select (joomla-field-fancy-select + Choices.js) */
+.vg-search-eb joomla-field-fancy-select {
+    display: block;
+    width: 100%;
+}
+
+.vg-search-eb joomla-field-fancy-select .choices {
+    margin-bottom: 0;
+}
+
+.vg-search-eb joomla-field-fancy-select .choices__inner {
+    min-height: 42px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.vg-search-eb joomla-field-fancy-select.is-focused .choices__inner {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
 /* Calendar input styling */
@@ -195,3 +213,33 @@
     height: 100%;
     width: 100%;
 }
+
+.choices__button_joomla {
+    color: inherit;
+    text-indent: -9999px;
+    cursor: pointer;
+    opacity: .5;
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0 10px;
+    position: relative;
+    font-weight: bold;
+  }
+  
+  .choices__button_joomla:before {
+    text-align: center;
+    text-indent: 0;
+    content: "×";
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+  
+  .choices__button_joomla:hover, .choices__button_joomla:focus {
+    opacity: 1;
+  }
+  
+  .choices__button_joomla:focus {
+    outline: none;
+  }
