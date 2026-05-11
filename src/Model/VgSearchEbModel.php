@@ -294,8 +294,17 @@ class VgSearchEbModel
 	private static function getConfiguredGenreOptions(): array
 	{
 		$defaultGenres = [
-			'Pop', 'Rock', 'Hip-Hop', 'Electronic (EDM)', 'Country', 'Jazz', 'Blues',
-			'R&B', 'Reggae', 'Classical', 'Techno', 'Death Metal', 'Trap',
+			'Solo Violin',
+			'Solo Piano',
+			'Chamber',
+			'Orchestral',
+			'Opera',
+			'Vocal',
+			'Contemporary-Classical',
+			'Cross-genre collaboration',
+			'Film Music',
+			'Folk',
+			'Jazz',
 		];
 
 		$db    = Factory::getContainer()->get('DatabaseDriver');
