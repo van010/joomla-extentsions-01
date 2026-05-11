@@ -268,7 +268,7 @@ if (PluginHelper::isEnabled('eventbooking', 'genres'))
 					<i class="fal fa-music eb-event-genres__icon"></i>
 				</div>
 				<div class="ct-desc">
-					<!-- <strong class="eb-event-genres__label"><?php echo Text::_('PLG_EVENTBOOKING_GENRES_LABEL'); ?>:</strong> -->
+					<strong class="eb-event-genres__label"><?php echo Text::_('PLG_EVENTBOOKING_GENRES_LABEL'); ?>:</strong>
 					<span class="eb-event-genres__values"><?php echo htmlspecialchars(implode(', ', $eventGenresDisplay), ENT_COMPAT, 'UTF-8'); ?></span>
 				</div>
 			</div>

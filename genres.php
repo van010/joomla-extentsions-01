@@ -7,9 +7,11 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\Database\ParameterType;
 use Joomla\Event\Event;
 use Joomla\Event\SubscriberInterface;
 use Joomla\Registry\Registry;
@@ -69,6 +71,7 @@ class plgEventbookingGenres extends CMSPlugin implements SubscriberInterface
 		}
 
 		$this->loadLanguage();
+		$this->enqueueFrontendCategoryOverrides();
 
 		ob_start();
 		$this->drawSettingForm($row);
@@ -165,6 +168,105 @@ class plgEventbookingGenres extends CMSPlugin implements SubscriberInterface
 		}
 
 		return true;
+	}
+
+	/**
+	 * Load override script/data for frontend submit-event form category fields.
+	 *
+	 * @return void
+	 */
+	private function enqueueFrontendCategoryOverrides(): void
+	{
+		if (!$this->app->isClient('site'))
+		{
+			return;
+		}
+
+		$input = $this->app->getInput();
+
+		if ($input->getCmd('option') !== 'com_eventbooking'
+			|| $input->getCmd('view') !== 'event'
+			|| !in_array($input->getCmd('layout', 'default'), ['form', 'simple'], true))
+		{
+			return;
+		}
+
+		$document = Factory::getDocument();
+		$wa       = $document->getWebAssetManager();
+		$wa->registerAndUseScript(
+			'plg_eventbooking_genres.category_override',
+			'plugins/eventbooking/genres/assets/js/plg-eb-genres.js'
+		);
+
+		$orchestraParent = trim((string) $this->params->get('orchestra_category_parent', 'Partners'));
+		$emotionParent   = trim((string) $this->params->get('emotion_category_parent', 'Emotion'));
+
+		$document->addScriptOptions(
+			'plgEventbookingGenresOverride',
+			[
+				'mainCategory'       => [
+					'selectId'      => 'main_category_id',
+					'labelFor'      => 'main_category_id',
+					'labelText'     => Text::_('PLG_EVENTBOOKING_GENRES_ORCHESTRAS_LABEL'),
+					'placeholder'   => Text::_('PLG_EVENTBOOKING_GENRES_SELECT_ORCHESTRA'),
+					'options'       => $this->getChildrenByParentName($orchestraParent),
+				],
+				'additionalCategory' => [
+					'selectId'      => 'category_id',
+					'labelFor'      => 'category_id',
+					'labelText'     => Text::_('PLG_EVENTBOOKING_GENRES_EMOTION_LABEL'),
+					'placeholder'   => Text::_('PLG_EVENTBOOKING_GENRES_SELECT_EMOTION'),
+					'options'       => $this->getChildrenByParentName($emotionParent),
+				],
+			]
+		);
+	}
+
+	/**
+	 * Find published child categories by parent category title.
+	 *
+	 * @param   string  $parentTitle  Parent category name to match.
+	 *
+	 * @return array<int, array{value:int,text:string}>
+	 */
+	private function getChildrenByParentName(string $parentTitle): array
+	{
+		$parentTitle = trim($parentTitle);
+
+		if ($parentTitle === '')
+		{
+			return [];
+		}
+
+		$db          = Factory::getContainer()->get('DatabaseDriver');
+		$fieldSuffix = '';
+
+		if (class_exists('EventbookingHelper') && method_exists('EventbookingHelper', 'getFieldSuffix'))
+		{
+			$fieldSuffix = (string) EventbookingHelper::getFieldSuffix();
+		}
+
+		$parentNameCol = 'name' . $fieldSuffix;
+		$childNameCol  = 'name' . $fieldSuffix;
+
+		$query = $db->getQuery(true)
+			->select($db->quoteName('c.id', 'value'))
+			->select($db->quoteName('c.' . $childNameCol, 'text'))
+			->from($db->quoteName('#__eb_categories', 'c'))
+			->innerJoin(
+				$db->quoteName('#__eb_categories', 'p')
+				. ' ON ' . $db->quoteName('p.id') . ' = ' . $db->quoteName('c.parent')
+			)
+			->where($db->quoteName('c.published') . ' = 1')
+			->where($db->quoteName('p.published') . ' = 1')
+			->where($db->quoteName('p.' . $parentNameCol) . ' = :parentTitle')
+			->order($db->quoteName('c.' . $childNameCol));
+
+		$query->bind(':parentTitle', $parentTitle, ParameterType::STRING);
+
+		$db->setQuery($query);
+
+		return $db->loadAssocList() ?: [];
 	}
 
 	/**

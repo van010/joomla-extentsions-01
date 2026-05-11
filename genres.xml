@@ -11,6 +11,7 @@
     <files>
         <filename plugin="genres">genres.php</filename>
         <folder>tmpl</folder>
+        <folder>assets</folder>
         <folder>override</folder>
     </files>
     <languages folder="language">
@@ -40,6 +41,22 @@
                         cols="60"
                         filter="raw"
                         default="Solo Violin, Solo Piano, Chamber, Orchestral, Opera, Vocal, Contemporary-Classical, Cross-genre collaboration, Film Music, Folk, Jazz"
+                />
+                <field
+                        name="orchestra_category_parent"
+                        type="text"
+                        label="PLG_EVENTBOOKING_GENRES_ORCHESTRA_CATEGORY_PARENT"
+                        description="PLG_EVENTBOOKING_GENRES_ORCHESTRA_CATEGORY_PARENT_DESC"
+                        default="Partners"
+                        filter="string"
+                />
+                <field
+                        name="emotion_category_parent"
+                        type="text"
+                        label="PLG_EVENTBOOKING_GENRES_EMOTION_CATEGORY_PARENT"
+                        description="PLG_EVENTBOOKING_GENRES_EMOTION_CATEGORY_PARENT_DESC"
+                        default="Emotion"
+                        filter="string"
                 />
             </fieldset>
         </fields>
