@@ -54,7 +54,6 @@ class ModVgSearchEbHelper
 			Response::error('Bad request');
 		}
 		$data = [
-			'filterToDate' => trim($input->getString('filter_to_date')),
 			'filterFromDate' => trim($input->getString('filter_from_date')),
 			'genreValues' => $input->get('genres', [], 'array'),
 			'orchestraCategoryId' => $input->getInt('orchestra_category_id', 0),

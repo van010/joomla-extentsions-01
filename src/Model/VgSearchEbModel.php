@@ -92,13 +92,9 @@ class VgSearchEbModel
 		// 1. Date Range
 		if (!empty($data['filterFromDate']))
 		{
-			$query->where($db->quoteName('e.event_date') . ' >= :fromDate')
+			$query->where($db->quoteName('e.event_date') . ' <= :fromDate')
+				->where('e.`event_end_date`' . ' >= :fromDate ')
 				->bind(':fromDate', $data['filterFromDate'], ParameterType::STRING);
-		}
-		if (!empty($data['filterToDate']))
-		{
-			$query->where($db->quoteName('e.event_date') . ' <= :toDate')
-				->bind(':toDate', $data['filterToDate'], ParameterType::STRING);
 		}
 
 		// 2. Orchestra Category
