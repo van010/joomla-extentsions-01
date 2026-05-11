@@ -50,6 +50,38 @@
                     <option value="Royal Philharmonic Orchestra">Royal Philharmonic Orchestra</option>
                 </field>
                 <field
+                    name="placeholder_orchestra"
+                    type="text"
+                    label="MOD_VG_SEARCH_EB_PLACEHOLDER_ORCHESTRA"
+                    description="MOD_VG_SEARCH_EB_PLACEHOLDER_ORCHESTRA_DESC"
+                    default="Select Orchestra"
+                    filter="string"
+                />
+                <field
+                    name="placeholder_genres"
+                    type="text"
+                    label="MOD_VG_SEARCH_EB_PLACEHOLDER_GENRES"
+                    description="MOD_VG_SEARCH_EB_PLACEHOLDER_GENRES_DESC"
+                    default="Type or Select Genres"
+                    filter="string"
+                />
+                <field
+                    name="placeholder_emotion"
+                    type="text"
+                    label="MOD_VG_SEARCH_EB_PLACEHOLDER_EMOTION"
+                    description="MOD_VG_SEARCH_EB_PLACEHOLDER_EMOTION_DESC"
+                    default="Type or Select Emotions"
+                    filter="string"
+                />
+                <field
+                    name="placeholder_venue"
+                    type="text"
+                    label="MOD_VG_SEARCH_EB_PLACEHOLDER_VENUE"
+                    description="MOD_VG_SEARCH_EB_PLACEHOLDER_VENUE_DESC"
+                    default="Select venues"
+                    filter="string"
+                />
+                <field
                     name="show_venues"
                     type="radio"
                     label="MOD_VG_SEARCH_EB_SHOW_VENUES"

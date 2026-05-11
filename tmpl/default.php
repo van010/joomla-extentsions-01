@@ -31,7 +31,7 @@ $layoutClass = !empty($moduleLayout) ? 'vg-search-eb-' . htmlspecialchars($modul
                         <?php echo Text::_('MOD_VG_SEARCH_EB_ORCHESTRA'); ?>
                     </label>
                     <select name="orchestra_category_id" id="vg_filter_orchestra" class="form-select">
-                        <option value=""><?php echo Text::_('MOD_VG_SEARCH_EB_SELECT_ORCHESTRA'); ?></option>
+                        <option value=""><?php echo htmlspecialchars($placeholderOrchestra, ENT_COMPAT, 'UTF-8'); ?></option>
                         <?php foreach ($filters['orchestra'] as $item) : ?>
                             <option value="<?php echo (int) $item->id; ?>"
                                 <?php echo (int) $item->id === (int) $selectedOrchestra ? 'selected' : ''; ?>>
@@ -52,7 +52,7 @@ $layoutClass = !empty($moduleLayout) ? 'vg-search-eb-' . htmlspecialchars($modul
                         'genres[]',
                         'vg_filter_genres',
                         $selectedGenres,
-                        Text::_('MOD_VG_TYPE_OR_SELECT_GENRES')
+                        $placeholderGenres
                     ); ?>
                 </div>
             <?php endif; ?>
@@ -67,7 +67,7 @@ $layoutClass = !empty($moduleLayout) ? 'vg-search-eb-' . htmlspecialchars($modul
                         'emotion_category_id[]',
                         'vg_filter_emotion',
                         $selectedEmotion,
-                        Text::_('MOD_VG_TYPE_OR_SELECT_EMOTIONS')
+                        $placeholderEmotion
                     ); ?>
                 </div>
             <?php endif; ?>
@@ -88,7 +88,7 @@ $layoutClass = !empty($moduleLayout) ? 'vg-search-eb-' . htmlspecialchars($modul
                         <?php echo Text::_('MOD_VG_SEARCH_EB_VENUE'); ?>
                     </label>
                     <select name="location_id" id="vg_filter_venue" class="form-select">
-                        <option value=""><?php echo Text::_('MOD_VG_SEARCH_EB_ALL_VENUES'); ?></option>
+                        <option value=""><?php echo htmlspecialchars($placeholderVenue, ENT_COMPAT, 'UTF-8'); ?></option>
                         <?php foreach ($filters['venues'] as $venue) : ?>
                             <option value="<?php echo (int) $venue->id; ?>"
                                 <?php echo (int) $venue->id === (int) $selectedVenue ? 'selected' : ''; ?>>

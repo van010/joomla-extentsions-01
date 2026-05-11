@@ -4,6 +4,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Application\SiteApplication;
 
@@ -39,6 +40,15 @@ $showVenues        = (int) $params->get('show_venues', 1) === 1;
 $itemId            = (int) $params->get('item_id') ?: $currentMenuId ?: EventbookingHelper::getItemid();
 $moduleLayout      = $params->get('module_layout', 'vertical');
 $searchResultLayout = $params->get('search_result_layout', 'timeline');
+
+$placeholderOrchestra = trim((string) $params->get('placeholder_orchestra', ''))
+    ?: Text::_('MOD_VG_SEARCH_EB_SELECT_ORCHESTRA');
+$placeholderGenres = trim((string) $params->get('placeholder_genres', ''))
+    ?: Text::_('MOD_VG_TYPE_OR_SELECT_GENRES');
+$placeholderEmotion = trim((string) $params->get('placeholder_emotion', ''))
+    ?: Text::_('MOD_VG_TYPE_OR_SELECT_EMOTIONS');
+$placeholderVenue = trim((string) $params->get('placeholder_venue', ''))
+    ?: Text::_('MOD_VG_SEARCH_EB_ALL_VENUES');
 
 $filters = [
     'genres'    => VgSearchEbModel::getTaxonomyOptions('Genres'),
