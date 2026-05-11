@@ -81,6 +81,29 @@ class plgEventbookingGenres extends CMSPlugin implements SubscriberInterface
 		$this->addResult($eventObj, $result);
 	}
 
+	/**
+	 * HTML for the Genres field on the frontend add/edit event form.
+	 * Used by com_eventbooking when the normal onEditEvent pipeline does not attach the tab.
+	 *
+	 * @param   object  $row  Event row/table object passed to the submit form view.
+	 *
+	 * @return  string  Markup or empty string when the plugin should not run on this context.
+	 */
+	public function renderFrontendEventForm(object $row): string
+	{
+		if (!$this->canRun($row))
+		{
+			return '';
+		}
+
+		$this->loadLanguage();
+
+		ob_start();
+		$this->drawSettingForm($row);
+
+		return (string) ob_get_clean();
+	}
+
 	public function onAfterSaveEvent(Event $eventObj): void
 	{
 		$args = $eventObj->getArguments();
