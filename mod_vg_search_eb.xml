@@ -6,7 +6,7 @@
     <authorEmail>info@vialma.com</authorEmail>
     <copyright>(C) 2023 Vialma. All rights reserved.</copyright>
     <license>https://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <description>MOD_VG_SEARCH_EB_XML_DESCRIPTION</description>
     <files>
         <filename module="mod_vg_search_eb">mod_vg_search_eb.php</filename>
