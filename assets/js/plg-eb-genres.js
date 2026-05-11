@@ -20,7 +20,7 @@
 		}
 		const selectionContainer = selectionField.parentElement.parentElement;
 		const label = selectionContainer.querySelector('.form-control-label');
-		console.log(label);
+
 		if (!label) {
 			return;
 		}
