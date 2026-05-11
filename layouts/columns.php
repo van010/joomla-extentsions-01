@@ -1,7 +1,6 @@
 <?php
 /**
  * Layout column for search result
- * @author vangogh
  * @version 1.0.0
  */
 

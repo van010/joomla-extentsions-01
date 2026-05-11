@@ -5,7 +5,6 @@ use Joomla\Database\ParameterType;
 
 /**
  * @package     ${NAMESPACE}
- * @author      vangogh
  * @since       1.0.0
  */
 trait IdeaQueryTrait

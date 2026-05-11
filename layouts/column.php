@@ -2,7 +2,6 @@
 /**
  * Layout column for search result
  *  supports carousel on mobile
- * @author vangogh
  * @version 1.0.0
  */
 

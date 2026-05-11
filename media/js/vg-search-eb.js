@@ -1,7 +1,6 @@
 /**
  * VgSearchEb Module - Joomla Event Search
  * Encapsulated, modern, and optimized for Joomla 4/5/6
- * @author vangogh
  */
 (function($) {
     'use strict';

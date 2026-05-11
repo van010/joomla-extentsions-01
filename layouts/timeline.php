@@ -2,7 +2,6 @@
 
 /**
  * Layout timeline for search result
- * @author vangogh
  * @version 1.0.0
  */
 use Joomla\CMS\Language\Text;
