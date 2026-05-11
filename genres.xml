@@ -6,11 +6,12 @@
     <copyright>Copyright 2026</copyright>
     <license>https://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@vialma.com</authorEmail>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>PLG_EVENTBOOKING_GENRES_XML_DESCRIPTION</description>
     <files>
         <filename plugin="genres">genres.php</filename>
         <folder>tmpl</folder>
+        <folder>override</folder>
     </files>
     <languages folder="language">
         <language tag="en-GB">en-GB/plg_eventbooking_genres.ini</language>
