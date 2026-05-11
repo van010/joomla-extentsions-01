@@ -22,19 +22,17 @@ class plgEventbookingGenres extends CMSPlugin implements SubscriberInterface
 	 * Allowed genre labels stored on the event (must match form options exactly).
 	 */
 	public const ALLOWED_GENRES = [
-		'Pop',
-		'Rock',
-		'Hip-Hop',
-		'Electronic (EDM)',
-		'Country',
+		'Solo Violin',
+		'Solo Piano',
+		'Chamber',
+		'Orchestral',
+		'Opera',
+		'Vocal',
+		'Contemporary-Classical',
+		'Cross-genre collaboration',
+		'Film Music',
+		'Folk',
 		'Jazz',
-		'Blues',
-		'R&B',
-		'Reggae',
-		'Classical',
-		'Techno',
-		'Death Metal',
-		'Trap',
 	];
 
 	/**

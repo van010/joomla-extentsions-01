@@ -39,7 +39,7 @@
                         rows="5"
                         cols="60"
                         filter="raw"
-                        default="Pop, Rock, Hip-Hop, Electronic (EDM), Country, Jazz, Blues, R&amp;B, Reggae, Classical, Techno, Death Metal, Trap"
+                        default="Solo Violin, Solo Piano, Chamber, Orchestral, Opera, Vocal, Contemporary-Classical, Cross-genre collaboration, Film Music, Folk, Jazz"
                 />
             </fieldset>
         </fields>
