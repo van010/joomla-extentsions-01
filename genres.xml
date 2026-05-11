@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="4.2.0" type="plugin" group="eventbooking" method="upgrade">
     <name>PLG_EVENTBOOKING_GENRES_XML_NAME</name>
-    <author>vangogh</author>
+    <author>Vialma</author>
     <creationDate>May 6th, 2026</creationDate>
     <copyright>Copyright 2026</copyright>
     <license>https://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <authorEmail>van.vanbac010@gmail.com</authorEmail>
-    <authorUrl>https://www.linkedin.com/in/van-hs-0a00511b2</authorUrl>
+    <authorEmail>info@vialma.com</authorEmail>
     <version>1.0.0</version>
     <description>PLG_EVENTBOOKING_GENRES_XML_DESCRIPTION</description>
     <files>
