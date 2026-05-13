@@ -131,21 +131,18 @@ class VgSearchEbModel
 				->bind(':locId', $data['locationId'], ParameterType::INTEGER);
 		}
 
-		// 4. Emotion Categories (ALL must match)
+		// 4. Emotion Categories (OR logic: at least one selected emotion matches)
 		$emotionIds = array_filter((array) $data['emotionCategoryId'], fn($v) => (int) $v > 0);
 
 		if (!empty($emotionIds))
 		{
-			$count = count($emotionIds);
-			// Safe to implode since we already filtered to positive integers
 			$idsList = implode(',', array_map('intval', $emotionIds));
 
+			/** @var \Joomla\Database\QueryInterface $subQuery */
 			$subQuery = $db->getQuery(true)
-				->select('event_id')
+				->select('DISTINCT ' . $db->quoteName('event_id'))
 				->from($db->quoteName('#__eb_event_categories'))
-				->where($db->quoteName('category_id') . ' IN (' . $idsList . ')')
-				->group('event_id')
-				->having('COUNT(DISTINCT category_id) = ' . $count);
+				->where($db->quoteName('category_id') . ' IN (' . $idsList . ')');
 
 			$query->where($db->quoteName('e.id') . ' IN (' . $subQuery . ')');
 		}
